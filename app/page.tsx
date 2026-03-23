@@ -20,7 +20,7 @@ export default function Home() {
   const [currentMonth, setCurrentMonth] = useState(new Date(2024, 10)) // Nov 2024
   const [selectedDay, setSelectedDay] = useState(null)
   const [marketData, setMarketData] = useState([])
-  const [monthlyAverages, setMonthlyAverages] = useState(null)
+  const [monthlyAverages, setMonthlyAverages] = useState<any>(null)
   const [loading, setLoading] = useState(true)
 
   // Fetch data on mount
