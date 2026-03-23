@@ -17,11 +17,11 @@ import {
 } from '@/lib/utils'
 
 export default function Home() {
-  const [currentMonth, setCurrentMonth] = useState(new Date(2024, 10)) // Nov 2024
-  const [selectedDay, setSelectedDay] = useState(null)
-  const [marketData, setMarketData] = useState<any>([])
-  const [monthlyAverages, setMonthlyAverages] = useState<any>(null)
-  const [loading, setLoading] = useState(true)
+ const [currentMonth, setCurrentMonth] = useState<Date>(new Date(2024, 10))
+const [selectedDay, setSelectedDay] = useState<any>(null)
+const [marketData, setMarketData] = useState<any[]>([])
+const [monthlyAverages, setMonthlyAverages] = useState<any>(null)
+const [loading, setLoading] = useState<boolean>(true)
 
   // Fetch data on mount
   useEffect(() => {
@@ -153,7 +153,7 @@ export default function Home() {
                     <DayCard
                       day={day}
                       data={getDayData(day)}
-                      isSelected={selectedDay?.date === `${currentMonth.getFullYear()}-${String(currentMonth.getMonth() + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`}
+                      isSelected={selectedDay && selectedDay.date === `${currentMonth.getFullYear()}-${String(currentMonth.getMonth() + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`}
                       onClick={() => setSelectedDay(getDayData(day))}
                     />
                   ) : (
