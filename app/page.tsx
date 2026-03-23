@@ -36,7 +36,7 @@ export default function Home() {
     }
   }, [marketData])
 
-  async function fetchMarketData() {
+  async function fetchMarketData(): Promise<void>  {
     setLoading(true)
     try {
       const startDate = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), 1)
@@ -61,17 +61,17 @@ export default function Home() {
     }
   }
 
-  function goToPreviousMonth() {
+  function goToPreviousMonth(): void  {
     setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1))
     setSelectedDay(null)
   }
 
-  function goToNextMonth() {
+  function goToNextMonth(): void {
     setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1))
     setSelectedDay(null)
   }
 
-  function getCalendarDays() {
+  function getCalendarDays(): any[]  {
     const year = currentMonth.getFullYear()
     const month = currentMonth.getMonth()
 
@@ -88,7 +88,7 @@ export default function Home() {
     return days
   }
 
-  function getDayData(day) {
+  function getDayData(day: any) { 
     if (!day) return null
     const dateStr = `${currentMonth.getFullYear()}-${String(currentMonth.getMonth() + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`
     return marketData.find(d => d.date === dateStr)
@@ -433,7 +433,7 @@ function DetailModal({ dayData, onClose }) {
 }
 
 // Helper Component
-function MetricRow({ label, value, category }) {
+function MetricRow({ label, value, category }: any) {
   const color = value >= 0 ? 'text-green-400' : 'text-red-400'
   const arrow = value >= 0 ? '↑' : '↓'
 
@@ -449,7 +449,7 @@ function MetricRow({ label, value, category }) {
 }
 
 // Sample Data Function
-function getSampleData() {
+function getSampleData(): any[]  {
   // Returns sample data if Supabase fails
   return [
     {
