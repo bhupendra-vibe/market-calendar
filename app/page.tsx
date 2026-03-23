@@ -178,7 +178,7 @@ const [loading, setLoading] = useState<boolean>(true)
 }
 
 // Tracked Metrics Panel Component
-function TrackedMetricsPanel({ monthData, selectedDay, monthlyAverages }) {
+function TrackedMetricsPanel({ monthData, selectedDay, monthlyAverages }: any) {
   const metrics = [
     { key: 'nifty', name: 'NIFTY 50' },
     { key: 'gift_nifty', name: 'GIFT NIFTY' },
@@ -235,7 +235,7 @@ function TrackedMetricsPanel({ monthData, selectedDay, monthlyAverages }) {
 }
 
 // Day Card Component
-function DayCard({ day, data, isSelected, onClick }) {
+function DayCard({ day, data, isSelected, onClick }: any) {
   if (!data) {
     return (
       <button
@@ -308,7 +308,7 @@ function DayCard({ day, data, isSelected, onClick }) {
 }
 
 // Detail Modal Component
-function DetailModal({ dayData, onClose }) {
+function DetailModal({ dayData, onClose }: any) {
   const dayType = getDayType(dayData)
   const insightText = getInsightText(dayData)
   const reasons = getPossibleReasons(dayData)
