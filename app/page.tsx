@@ -91,7 +91,7 @@ export default function Home() {
   function getDayData(day: any) { 
     if (!day) return null
     const dateStr = `${currentMonth.getFullYear()}-${String(currentMonth.getMonth() + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`
-    return marketData.find(d => d.date === dateStr)
+    return marketData.find((d: any) => d.date === dateStr)
   }
 
   const calendarDays = getCalendarDays()
