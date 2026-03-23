@@ -183,7 +183,7 @@ export function downloadCSV(csvContent: string, filename: string = 'market-data.
 }
 // Add these new functions to your existing utils
 
-export function calculateMonthlyAverages(marketData) {
+export function calculateMonthlyAverages(marketData: any) {
   if (marketData.length === 0) return null
 
   const metrics = ['nifty', 'gift_nifty', 'banknifty', 'gold', 'silver', 'crude']
@@ -203,14 +203,14 @@ export function calculateMonthlyAverages(marketData) {
   return averages
 }
 
-export function getMetricCategory(volatility) {
+export function getMetricCategory(volatility: number) {
   if (volatility < 1.0) return 'Low'
   if (volatility < 2.0) return 'Medium'
   if (volatility < 2.5) return 'High'
   return 'Extreme'
 }
 
-export function getDayType(dayData) {
+export function getDayType(dayData: any) {
   const equityAvg = (
     (dayData.nifty_volatility || 0) +
     (dayData.banknifty_volatility || 0) +
@@ -232,7 +232,7 @@ export function getDayType(dayData) {
   }
 }
 
-export function getInsightText(dayData) {
+export function getInsightText(dayData: any) {
   const dayType = getDayType(dayData)
   
   const commodityMax = Math.max(
@@ -250,7 +250,7 @@ export function getInsightText(dayData) {
   }
 }
 
-export function getPossibleReasons(dayData) {
+export function getPossibleReasons(dayData: any)  {
   const reasons = []
 
   if ((dayData.crude_volatility || 0) > 2.5) {
@@ -273,7 +273,7 @@ export function getPossibleReasons(dayData) {
   return reasons.length > 0 ? reasons : ['General market volatility']
 }
 
-export function getSectorWinners(dayData) {
+export function getSectorWinners(dayData: any) {
   const winners = []
 
   if ((dayData.crude_change || 0) > 2) {
@@ -291,7 +291,7 @@ export function getSectorWinners(dayData) {
   return winners
 }
 
-export function getSectorLosers(dayData) {
+export function getSectorLosers(dayData: any) {
   const losers = []
 
   if ((dayData.crude_change || 0) > 2) {
