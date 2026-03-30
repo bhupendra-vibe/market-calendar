@@ -192,8 +192,8 @@ export function calculateMonthlyAverages(marketData: any) {
   for (const metric of metrics) {
     const changeKey = `${metric}_change`
     const values = marketData
-      .map(d => d[changeKey])
-      .filter(v => v !== null && v !== undefined)
+      .map(( d:any) => d[changeKey])
+      .filter( ( v :any) => v !== null && v !== undefined)
 
     averages[metric] = values.length > 0
       ? values.reduce((a, b) => a + b, 0) / values.length
