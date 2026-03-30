@@ -187,7 +187,7 @@ export function calculateMonthlyAverages(marketData: any) {
   if (marketData.length === 0) return null
 
   const metrics = ['nifty', 'gift_nifty', 'banknifty', 'gold', 'silver', 'crude']
-  const averages = {}
+  const averages: any = {}
 
   for (const metric of metrics) {
     const changeKey = `${metric}_change`
@@ -196,7 +196,7 @@ export function calculateMonthlyAverages(marketData: any) {
       .filter( (v :any) => v !== null && v !== undefined)
 
     averages[metric] = values.length > 0
-      ? values.reduce((a, b) => a + b, 0) / values.length
+      ?  values.reduce((a: any, b: any) => a + b, 0) / values.length
       : 0
   }
 
