@@ -181,39 +181,38 @@ export function downloadCSV(csvContent: string, filename: string = 'market-data.
   link.click()
   document.body.removeChild(link)
 }
-// Add these new functions to your existing utils
 
+/**
+ * Calculate monthly averages for all metrics
+ */
 export function calculateMonthlyAverages(marketData: any): any {
   if (marketData.length === 0) return null
 
-  const averages: Record<string, number> = {}
+  const averages: Record<string, any> = {}
   const metrics = ['nifty', 'gift_nifty', 'banknifty', 'gold', 'silver', 'crude']
- 
 
   for (const metric of metrics) {
     const changeKey = `${metric}_change`
     const values = marketData
-      .map((d:any) => d[changeKey])
-      .filter( (v :any) => v !== null && v !== undefined)
+      .map((d: any) => d[changeKey])
+      .filter((v: any) => v !== null && v !== undefined)
 
     averages[metric] = values.length > 0
-      ?  values.reduce((a: any, b: any) => a + b, 0) / values.length
+      ? values.reduce((a: any, b: any) => a + b, 0) / values.length
       : 0
   }
-
-  //checking redployment
 
   return averages
 }
 
-export function getMetricCategory(volatility: number) {
+export function getMetricCategory(volatility: number): string {
   if (volatility < 1.0) return 'Low'
   if (volatility < 2.0) return 'Medium'
   if (volatility < 2.5) return 'High'
   return 'Extreme'
 }
 
-export function getDayType(dayData: any) {
+export function getDayType(dayData: any): string {
   const equityAvg = (
     (dayData.nifty_volatility || 0) +
     (dayData.banknifty_volatility || 0) +
@@ -235,14 +234,8 @@ export function getDayType(dayData: any) {
   }
 }
 
-export function getInsightText(dayData: any) {
+export function getInsightText(dayData: any): string {
   const dayType = getDayType(dayData)
-  
-  const commodityMax = Math.max(
-    dayData.crude_volatility || 0,
-    dayData.gold_volatility || 0,
-    dayData.silver_volatility || 0
-  )
 
   if (dayType === 'Commodity-Driven Day') {
     return `While equities remained stable, commodities experienced significant volatility. Crude oil led the movement with a ${Math.abs(dayData.crude_change).toFixed(1)}% move.`
@@ -253,8 +246,8 @@ export function getInsightText(dayData: any) {
   }
 }
 
-export function getPossibleReasons(dayData: any)  {
-  const reasons = []
+export function getPossibleReasons(dayData: any): string[] {
+  const reasons: string[] = []
 
   if ((dayData.crude_volatility || 0) > 2.5) {
     reasons.push('Oil supply disruptions')
@@ -276,8 +269,8 @@ export function getPossibleReasons(dayData: any)  {
   return reasons.length > 0 ? reasons : ['General market volatility']
 }
 
-export function getSectorWinners(dayData: any) {
-  const winners = []
+export function getSectorWinners(dayData: any): string[] {
+  const winners: string[] = []
 
   if ((dayData.crude_change || 0) > 2) {
     winners.push('Oil & Energy stocks')
@@ -294,8 +287,8 @@ export function getSectorWinners(dayData: any) {
   return winners
 }
 
-export function getSectorLosers(dayData: any) {
-  const losers = []
+export function getSectorLosers(dayData: any): string[] {
+  const losers: string[] = []
 
   if ((dayData.crude_change || 0) > 2) {
     losers.push('Logistics & Transport')
