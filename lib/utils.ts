@@ -200,6 +200,8 @@ export function calculateMonthlyAverages(marketData: any) {
       : 0
   }
 
+  //checking redployment
+
   return averages
 }
 
