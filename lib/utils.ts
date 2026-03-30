@@ -183,11 +183,12 @@ export function downloadCSV(csvContent: string, filename: string = 'market-data.
 }
 // Add these new functions to your existing utils
 
-export function calculateMonthlyAverages(marketData: any) {
+export function calculateMonthlyAverages(marketData: any): any {
   if (marketData.length === 0) return null
 
+  const averages: Record<string, number> = {}
   const metrics = ['nifty', 'gift_nifty', 'banknifty', 'gold', 'silver', 'crude']
-  const averages: any = {}
+ 
 
   for (const metric of metrics) {
     const changeKey = `${metric}_change`
