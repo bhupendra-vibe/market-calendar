@@ -18,6 +18,7 @@ export async function GET(request: Request) {
       .select('*')
       .gte('date', start)
       .lte('date', end)
+      .eq('session', 'cash')
       .order('date', { ascending: true })
 
     if (error) {
@@ -25,12 +26,12 @@ export async function GET(request: Request) {
       throw error
     }
 
-    return Response.json({ data })
+    return Response.json({ data: data || [] })
   } catch (error) {
     console.error('API error:', error)
     return Response.json(
-      { error: 'Failed to fetch market data' },
-      { status: 500 }
+      { data: [] },
+      { status: 200 }
     )
   }
 }

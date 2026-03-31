@@ -36,30 +36,35 @@ const [loading, setLoading] = useState<boolean>(true)
     }
   }, [marketData])
 
-  async function fetchMarketData(): Promise<void>  {
-    setLoading(true)
-    try {
-      const startDate = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), 1)
-      const endDate = new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 0)
+  async function fetchMarketData(): Promise<void> {
+  setLoading(true)
+  try {
+    const startDate = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), 1)
+    const endDate = new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 0)
 
-      const { data, error } = await supabase
-        .from('market_data')
-        .select('*')
-        .gte('date', startDate.toISOString().split('T')[0])
-        .lte('date', endDate.toISOString().split('T')[0])
-        .order('date', { ascending: true })
+    const startStr = startDate.toISOString().split('T')[0]
+    const endStr = endDate.toISOString().split('T')[0]
 
-      if (error) throw error
+    console.log(`Fetching from ${startStr} to ${endStr}`)
 
-      setMarketData(data || [])
-    } catch (error) {
-      console.error('Error fetching data:', error)
-      // Use sample data if fetch fails
-      setMarketData(getSampleData())
-    } finally {
-      setLoading(false)
-    }
+    const response = await fetch(`/api/market-data?start=${startStr}&end=${endStr}`)
+    
+    console.log('Response status:', response.status)
+    
+    const result = await response.json()
+    
+    console.log('Response data:', result)
+
+    if (result.error) throw new Error(result.error)
+
+    setMarketData(result.data || [])
+  } catch (error: any) {
+    console.error('Error fetching data:', error?.message || error)
+    setMarketData(getSampleData())
+  } finally {
+    setLoading(false)
   }
+}
 
   function goToPreviousMonth(): void  {
     setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1))
