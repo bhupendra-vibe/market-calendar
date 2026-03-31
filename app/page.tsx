@@ -17,7 +17,7 @@ import {
 } from '@/lib/utils'
 
 export default function Home() {
- const [currentMonth, setCurrentMonth] = useState<Date>(new Date(2024, 10))
+ const [currentMonth, setCurrentMonth] = useState<Date>(new Date(2026, 2)) // March 2026
 const [selectedDay, setSelectedDay] = useState<any>(null)
 const [marketData, setMarketData] = useState<any[]>([])
 const [monthlyAverages, setMonthlyAverages] = useState<any>(null)
