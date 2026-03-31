@@ -54,6 +54,8 @@ const [loading, setLoading] = useState<boolean>(true)
     const result = await response.json()
     
     console.log('Response data:', result)
+    console.log('Data array length:', result.data?.length)
+console.log('First record:', result.data?.[0])
 
     if (result.error) throw new Error(result.error)
 
